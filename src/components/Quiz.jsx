@@ -60,12 +60,11 @@ function Quiz() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <Timer /> {/* Display the quiz timer */}
+      <Timer /> 
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2">
           <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-            {/* Display the current question and allow clearing the selected answer */}
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">
                 Question {currentQuestionIndex + 1} of {questions.length}
@@ -81,7 +80,6 @@ function Quiz() {
               )}
             </div>
 
-            {/* Display the current question and its choices */}
             <div className="mb-6">
               <p className="text-lg" dangerouslySetInnerHTML={{ __html: currentQuestion.question }} />
             </div>
@@ -101,7 +99,6 @@ function Quiz() {
             </div>
           </div>
 
-          {/* Navigation buttons for moving between questions */}
           <div className="flex justify-between items-center mt-6">
             <button
               onClick={() => goToQuestion(currentQuestionIndex - 1)}
@@ -132,7 +129,6 @@ function Quiz() {
           </div>
         </div>
 
-        {/* Sidebar with question overview */}
         <div className="md:col-span-1">
           <div className="sticky top-4">
             <QuestionOverview 

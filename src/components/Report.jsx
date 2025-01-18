@@ -2,43 +2,40 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuiz } from '../context/QuizContext';
 
-// This component displays the quiz results, including score and time taken, as well as a detailed review of each question.
+// Displays quiz results including score, time taken, and detailed review of each question.
 function Report() {
   const navigate = useNavigate();
   const { questions, answers, timeRemaining, resetQuiz } = useQuiz();
 
-  // Calculate the score based on correct answers.
+  // Calculates the score based on correct answers.
   const calculateScore = () => {
     return questions.reduce((score, question, index) => {
       return score + (answers[index] === question.correctAnswer ? 1 : 0);
     }, 0);
   };
 
-  // Calculate the time taken for the quiz based on the remaining time.
+  // Calculates the time taken based on the remaining time.
   const timeTaken = 1800 - timeRemaining;
   const minutes = Math.floor(timeTaken / 60);
   const seconds = timeTaken % 60;
 
-  // Reset the quiz and navigate back to the home page.
+  // Resets the quiz and navigates to the home page.
   const handleReturnHome = () => {
-    resetQuiz(); // Reset all quiz state
-    navigate('/'); // Navigate to home
+    resetQuiz();
+    navigate('/');
   };
 
   return (
     <div className="space-y-8">
-      {/* Display final score and time taken */}
       <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
         <h2 className="text-2xl font-bold mb-4">Quiz Results</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Final Score Display */}
           <div className="text-center p-4 bg-blue-50 rounded-lg">
             <h3 className="text-lg font-medium text-gray-600 mb-2">Final Score</h3>
             <p className="text-3xl font-bold text-blue-600">
               {calculateScore()} / {questions.length}
             </p>
           </div>
-          {/* Time Taken Display */}
           <div className="text-center p-4 bg-green-50 rounded-lg">
             <h3 className="text-lg font-medium text-gray-600 mb-2">Time Taken</h3>
             <p className="text-3xl font-bold text-green-600">
@@ -48,7 +45,6 @@ function Report() {
         </div>
       </div>
 
-      {/* Display the answers for each question */}
       <div className="space-y-6">
         {questions.map((question, index) => (
           <div key={index} className="bg-white rounded-lg shadow-lg p-6">
@@ -82,7 +78,6 @@ function Report() {
         ))}
       </div>     
 
-      {/* Return to home button */}
       <div className="flex justify-center pt-8">
         <button
           onClick={handleReturnHome}

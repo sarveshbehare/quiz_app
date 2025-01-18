@@ -1,15 +1,13 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 
-// Create the context to manage quiz-related states
 const QuizContext = createContext();
 
-// QuizProvider component to wrap the app and provide context values to children
 export function QuizProvider({ children }) {
-  const [userEmail, setUserEmail] = useState(''); // Store the user's email
-  const [questions, setQuestions] = useState([]); // Store quiz questions
-  const [answers, setAnswers] = useState({}); // Store answers to the questions
-  const [visitedQuestions, setVisitedQuestions] = useState(new Set()); // Track visited questions
-  const [timeRemaining, setTimeRemaining] = useState(30 * 60); // Store remaining time
+  const [userEmail, setUserEmail] = useState('');
+  const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState({});
+  const [visitedQuestions, setVisitedQuestions] = useState(new Set());
+  const [timeRemaining, setTimeRemaining] = useState(30 * 60);
 
   // Function to reset the quiz state
   const resetQuiz = useCallback(() => {
@@ -17,39 +15,37 @@ export function QuizProvider({ children }) {
     setQuestions([]);
     setAnswers({});
     setVisitedQuestions(new Set());
-    setTimeRemaining(30 * 60); // Reset time to 30 minutes
+    setTimeRemaining(30 * 60);
   }, []);
 
-  // Function to update the quiz questions
+  // Function to update quiz questions
   const updateQuestions = useCallback((newQuestions) => {
     if (Array.isArray(newQuestions) && newQuestions.length > 0) {
-      setQuestions([...newQuestions]); // Set the new questions
+      setQuestions([...newQuestions]);
     }
   }, []);
 
-  // The context value that will be provided to all child components
   const value = {
     userEmail,
     setUserEmail,
     questions,
-    setQuestions: updateQuestions, // Set custom update function for questions
+    setQuestions: updateQuestions,
     answers,
     setAnswers,
     visitedQuestions,
     setVisitedQuestions,
     timeRemaining,
     setTimeRemaining,
-    resetQuiz // Function to reset the quiz
+    resetQuiz
   };
 
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
 }
 
-// Custom hook to use quiz context values and functions
 export function useQuiz() {
   const context = useContext(QuizContext);
   if (!context) {
-    throw new Error('useQuiz must be used within a QuizProvider'); // Ensure the hook is used inside a provider
+    throw new Error('useQuiz must be used within a QuizProvider');
   }
-  return context; // Return context values
+  return context;
 }
