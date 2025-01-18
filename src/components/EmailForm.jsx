@@ -20,7 +20,7 @@ function EmailForm({ onSubmit }) {
           type="email"
           id="email"
           required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="border-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
